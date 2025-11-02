@@ -9,20 +9,19 @@ body {
   background: #f0f0f0;
   color: #000000;
   min-height: 100vh;
-  font-size: 18px;
 }
 
 .container {
-  max-width: 1300px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 20px;
 }
 
-/* ==================== NAVBAR ==================== */
+/* Navigation Bar */
 .navbar {
   background: #ffffff;
-  padding: 20px 0;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  padding: 14px 0; /* أكبر قليلاً */
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -31,207 +30,138 @@ body {
 
 .logo {
   text-align: center;
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 26px; /* أكبر */
+  font-weight: 600;
   color: #000000;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 1.2px;
 }
 
 .back-btn {
   position: absolute;
-  left: 25px;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
   background: #000000;
   color: #ffffff;
-  padding: 14px 28px;
-  border-radius: 14px;
+  padding: 10px 18px; /* أكبر */
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 20px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-weight: 500;
+  font-size: 16px;
+  transition: background 0.3s ease;
 }
 
 .back-btn:hover {
   background: #333333;
-  transform: translateY(-50%) scale(1.05);
 }
 
-/* ==================== GAMES GRID ==================== */
+/* Games Grid */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 30px;
-  margin-top: 60px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); /* أكبر قليلاً */
+  gap: 22px;
+  margin-top: 45px;
 }
 
 .game-card {
   background: #ffffff;
-  border-radius: 32px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.4s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: all 0.35s ease;
   text-decoration: none;
   color: inherit;
 }
 
 .game-card:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  transform: translateY(-7px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
 }
 
 .game-card img {
   width: 100%;
-  height: 240px;
+  height: 180px; /* أكبر */
   object-fit: cover;
-  border-bottom: 4px solid #000000;
+  border-bottom: 2px solid #e0e0e0;
 }
 
 .game-card h3 {
   text-align: center;
-  padding: 22px 12px;
-  font-weight: 600;
-  color: #000000;
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  padding: 14px 8px; /* مسافة أكبر */
+  font-weight: 500;
+  color: #222222;
+  font-size: 17px;
 }
 
-/* ==================== FOOTER LINKS (تحت الصناديق) ==================== */
-.footer-links {
-  margin-top: 80px;
-  padding: 40px 20px;
-  background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.footer-links h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #000000;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-.links-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-}
-
-.link-item {
-  background: #000000;
-  color: #ffffff;
-  padding: 20px 35px;
-  border-radius: 16px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-  min-width: 280px;
-}
-
-.link-item:hover {
-  background: #333333;
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-}
-
-.link-item img {
-  width: 40px;
-  height: 40px;
-  filter: brightness(0) invert(1);
-}
-
-.link-item span {
-  flex: 1;
-  text-align: center;
-}
-
-/* ==================== GAME DETAILS ==================== */
+/* Game Details Page */
 .game-details {
-  margin-top: 50px;
-  padding-bottom: 80px;
+  margin-top: 35px;
+  padding-bottom: 50px; /* مسافة من تحت */
 }
 
 .game-header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 50px;
-  gap: 30px;
+  margin-bottom: 35px;
+  gap: 18px;
 }
 
 .game-detail-img {
-  width: 200px;
-  height: 200px;
+  width: 160px; /* أكبر */
+  height: 160px;
   object-fit: cover;
-  border-radius: 24px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-  border: 4px solid #000000;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
 }
 
 .game-title {
-  font-size: 42px;
+  font-size: 30px; /* أكبر */
   color: #000000;
   margin: 0;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+  font-weight: 600;
 }
 
-/* ==================== PRICING TABLE ==================== */
+/* Pricing Table - تحسين كامل */
 .pricing-table {
   overflow-x: auto;
-  margin-bottom: 60px;
-  border-radius: 24px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  margin-bottom: 40px; /* مسافة كبيرة من تحت */
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 .pricing-table table {
   width: 100%;
-  min-width: 400px;
+  min-width: 320px;
   border-collapse: separate;
   border-spacing: 0;
   background: #ffffff;
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
-  border: 4px solid #000000;
+  border: 2px solid #000000; /* إطار أسود قوي */
 }
 
 .pricing-table th {
   background: #000000;
   color: #ffffff;
-  padding: 28px 20px;
-  font-weight: 700;
-  font-size: 24px;
+  padding: 20px 16px; /* أكبر */
+  font-weight: 600;
+  font-size: 18px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.5px;
 }
 
 .pricing-table td {
-  padding: 25px 20px;
+  padding: 18px 16px; /* أكبر */
   text-align: center;
-  border-bottom: 2px solid #000000;
-  border-left: 2px solid #000000;
-  font-size: 22px;
-  font-weight: 600;
+  border-bottom: 1px solid #000000;
+  border-left: 1px solid #000000;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 .pricing-table tr td:first-child {
   border-left: none;
-  font-weight: 700;
-  color: #000000;
 }
 
 .pricing-table tr:last-child td {
@@ -239,120 +169,89 @@ body {
 }
 
 .pricing-table tr:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
 }
 
+/* أول عمود (الكمية) */
+.pricing-table td:first-child {
+  font-weight: 600;
+  color: #000000;
+}
+
+/* آخر عمود (السعر) */
 .pricing-table td:last-child {
   color: #d00;
-  font-weight: 800;
-  font-size: 24px;
+  font-weight: 700;
 }
 
-/* ==================== CHARGE BUTTON ==================== */
+/* Charge Button */
 .charge-btn {
   display: block;
   width: fit-content;
   margin: 0 auto;
-  padding: 20px 50px;
+  padding: 16px 32px; /* أكبر */
   background: #000000;
   color: #ffffff;
   text-decoration: none;
-  border-radius: 16px;
-  font-weight: 700;
-  font-size: 24px;
-  transition: all 0.4s ease;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 19px;
+  transition: all 0.3s ease;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .charge-btn:hover {
   background: #333333;
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive - على الأقل صندوقين في كل صف */
 @media (max-width: 768px) {
   .games-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
+    grid-template-columns: repeat(2, 1fr); /* بالضبط صندوقين */
+    gap: 18px;
   }
   .game-card img {
-    height: 200px;
+    height: 150px;
   }
   .game-card h3 {
-    font-strength: 20px;
-    padding: 18px 10px;
+    font-size: 16px;
+    padding: 12px 6px;
   }
   .game-detail-img {
-    width: 160px;
-    height: 160px;
+    width: 130px;
+    height: 130px;
   }
   .game-title {
-    font-size: 34px;
+    font-size: 26px;
   }
   .back-btn {
-    padding: 12px 22px;
-    font-size: 18px;
-    left: 15px;
+    padding: 8px 14px;
+    font-size: 15px;
   }
   .charge-btn {
-    padding: 18px 40px;
-    font-size: 22px;
+    padding: 14px 28px;
+    font-size: 17px;
   }
   .pricing-table th,
   .pricing-table td {
-    padding: 20px 14px;
-    font-size: 20px;
-  }
-  .navbar {
-    padding: 18px 0;
-  }
-  .logo {
-    font-size: 32px;
-  }
-
-  /* Footer Links - Mobile */
-  .links-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-  .link-item {
-    width: 90%;
-    max-width: 400px;
+    padding: 16px 12px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 20px 15px;
-  }
-  .game-header {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-  .game-detail-img {
-    width: 140px;
-    height: 140px;
-  }
-  .game-title {
-    font-size: 30px;
-  }
-  .back-btn {
-    position: static;
-    display: block;
-    margin: 15px auto 0;
-    transform: none;
-    width: fit-content;
-  }
   .navbar {
-    padding: 15px 0;
-    text-align: center;
+    padding: 12px 0;
   }
   .logo {
-    font-size: 28px;
+    font-size: 24px;
+  }
+  .back-btn {
+    left: 15px;
+    padding: 7px 12px;
+    font-size: 14px;
   }
 }
