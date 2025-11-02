@@ -9,20 +9,19 @@ body {
   background: #f0f0f0;
   color: #000000;
   min-height: 100vh;
-  font-size: 18px; /* حجم خط أساسي أكبر */
+  font-size: 18px;
 }
 
-/* ==================== CONTAINER ==================== */
 .container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 30px 20px; /* مسافة أكبر */
+  padding: 30px 20px;
 }
 
 /* ==================== NAVBAR ==================== */
 .navbar {
   background: #ffffff;
-  padding: 20px 0; /* أكبر بكتير */
+  padding: 20px 0;
   box-shadow: 0 4px 20px rgba(0,0,0,0.12);
   position: sticky;
   top: 0;
@@ -32,7 +31,7 @@ body {
 
 .logo {
   text-align: center;
-  font-size: 36px; /* ضخم */
+  font-size: 36px;
   font-weight: 700;
   color: #000000;
   letter-spacing: 2px;
@@ -46,11 +45,11 @@ body {
   transform: translateY(-50%);
   background: #000000;
   color: #ffffff;
-  padding: 14px 28px; /* زر كبير */
+  padding: 14px 28px;
   border-radius: 14px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 20px; /* نص كبير */
+  font-size: 20px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -63,14 +62,14 @@ body {
 /* ==================== GAMES GRID ==================== */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* صناديق أكبر */
-  gap: 30px; /* مسافة كبيرة */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
   margin-top: 60px;
 }
 
 .game-card {
   background: #ffffff;
-  border-radius: 32px; /* حواف ناعمة جدًا */
+  border-radius: 32px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   transition: all 0.4s ease;
@@ -85,25 +84,84 @@ body {
 
 .game-card img {
   width: 100%;
-  height: 240px; /* صورة كبيرة جدًا */
+  height: 240px;
   object-fit: cover;
   border-bottom: 4px solid #000000;
 }
 
 .game-card h3 {
   text-align: center;
-  padding: 22px 12px; /* مسافة كبيرة */
+  padding: 22px 12px;
   font-weight: 600;
   color: #000000;
-  font-size: 22px; /* اسم اللعبة كبير */
+  font-size: 22px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* ==================== FOOTER LINKS (تحت الصناديق) ==================== */
+.footer-links {
+  margin-top: 80px;
+  padding: 40px 20px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.footer-links h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.link-item {
+  background: #000000;
+  color: #ffffff;
+  padding: 20px 35px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  min-width: 280px;
+}
+
+.link-item:hover {
+  background: #333333;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+.link-item img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.link-item span {
+  flex: 1;
+  text-align: center;
 }
 
 /* ==================== GAME DETAILS ==================== */
 .game-details {
   margin-top: 50px;
-  padding-bottom: 80px; /* مسافة كبيرة من تحت */
+  padding-bottom: 80px;
 }
 
 .game-header {
@@ -111,11 +169,11 @@ body {
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 50px;
-  gap: 30px; /* مسافة كبيرة بين الصورة والاسم */
+  gap: 30px;
 }
 
 .game-detail-img {
-  width: 200px; /* صورة كبيرة جدًا */
+  width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 24px;
@@ -124,7 +182,7 @@ body {
 }
 
 .game-title {
-  font-size: 42px; /* عنوان ضخم */
+  font-size: 42px;
   color: #000000;
   margin: 0;
   font-weight: 700;
@@ -132,10 +190,10 @@ body {
   letter-spacing: 1.5px;
 }
 
-/* ==================== PRICING TABLE (الجدول الأجمل والأكبر) ==================== */
+/* ==================== PRICING TABLE ==================== */
 .pricing-table {
   overflow-x: auto;
-  margin-bottom: 60px; /* مسافة كبيرة جدًا من تحت */
+  margin-bottom: 60px;
   border-radius: 24px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.12);
 }
@@ -148,25 +206,25 @@ body {
   background: #ffffff;
   border-radius: 24px;
   overflow: hidden;
-  border: 4px solid #000000; /* إطار أسود قوي */
+  border: 4px solid #000000;
 }
 
 .pricing-table th {
   background: #000000;
   color: #ffffff;
-  padding: 28px 20px; /* مساحة كبيرة جدًا */
+  padding: 28px 20px;
   font-weight: 700;
-  font-size: 24px; /* عنوان الجدول كبير */
+  font-size: 24px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
 .pricing-table td {
-  padding: 25px 20px; /* خلايا كبيرة جدًا */
+  padding: 25px 20px;
   text-align: center;
   border-bottom: 2px solid #000000;
   border-left: 2px solid #000000;
-  font-size: 22px; /* نص كبير */
+  font-size: 22px;
   font-weight: 600;
 }
 
@@ -184,7 +242,6 @@ body {
   background-color: #f5f5f5;
 }
 
-/* السعر يبرز */
 .pricing-table td:last-child {
   color: #d00;
   font-weight: 800;
@@ -196,13 +253,13 @@ body {
   display: block;
   width: fit-content;
   margin: 0 auto;
-  padding: 20px 50px; /* زر ضخم */
+  padding: 20px 50px;
   background: #000000;
   color: #ffffff;
   text-decoration: none;
   border-radius: 16px;
   font-weight: 700;
-  font-size: 24px; /* نص كبير جدًا */
+  font-size: 24px;
   transition: all 0.4s ease;
   text-align: center;
   box-shadow: 0 8px 25px rgba(0,0,0,0.25);
@@ -216,17 +273,17 @@ body {
   box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 
-/* ==================== RESPONSIVE (موبايل: 2 صناديق فقط) ==================== */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
   .games-grid {
-    grid-template-columns: 1fr 1fr; /* بالضبط صندوقين */
+    grid-template-columns: 1fr 1fr;
     gap: 25px;
   }
   .game-card img {
     height: 200px;
   }
   .game-card h3 {
-    font-size: 20px;
+    font-strength: 20px;
     padding: 18px 10px;
   }
   .game-detail-img {
@@ -255,6 +312,16 @@ body {
   }
   .logo {
     font-size: 32px;
+  }
+
+  /* Footer Links - Mobile */
+  .links-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .link-item {
+    width: 90%;
+    max-width: 400px;
   }
 }
 
