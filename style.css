@@ -9,21 +9,21 @@ body {
   background: #f0f0f0;
   color: #000000;
   min-height: 100vh;
-  font-size: 18px; /* حجم خط أساسي أكبر */
+  font-size: 16px; /* أصغر من 18px */
 }
 
 /* ==================== CONTAINER ==================== */
 .container {
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 30px 20px; /* مسافة أكبر */
+  padding: 20px 15px; /* أقل من 30px 20px */
 }
 
 /* ==================== NAVBAR ==================== */
 .navbar {
   background: #ffffff;
-  padding: 20px 0; /* أكبر بكتير */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  padding: 14px 0; /* أصغر من 20px */
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -32,141 +32,141 @@ body {
 
 .logo {
   text-align: center;
-  font-size: 36px; /* ضخم */
+  font-size: 28px; /* أصغر من 36px */
   font-weight: 700;
   color: #000000;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
 .back-btn {
   position: absolute;
-  left: 25px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   background: #000000;
   color: #ffffff;
-  padding: 14px 28px; /* زر كبير */
-  border-radius: 14px;
+  padding: 10px 20px; /* أصغر من 14px 28px */
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 20px; /* نص كبير */
+  font-size: 16px; /* أصغر من 20px */
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
 }
 
 .back-btn:hover {
   background: #333333;
-  transform: translateY(-50%) scale(1.05);
+  transform: translateY(-50%) scale(1.03);
 }
 
 /* ==================== GAMES GRID ==================== */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* صناديق أكبر */
-  gap: 30px; /* مسافة كبيرة */
-  margin-top: 60px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* أصغر من 240px */
+  gap: 22px; /* أقل من 30px */
+  margin-top: 45px; /* أقل من 60px */
 }
 
 .game-card {
   background: #ffffff;
-  border-radius: 32px; /* حواف ناعمة جدًا */
+  border-radius: 24px; /* أقل من 32px */
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.4s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: all 0.35s ease;
   text-decoration: none;
   color: inherit;
 }
 
 .game-card:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.14);
 }
 
 .game-card img {
   width: 100%;
-  height: 240px; /* صورة كبيرة جدًا */
+  height: 180px; /* أصغر من 240px */
   object-fit: cover;
-  border-bottom: 4px solid #000000;
+  border-bottom: 3px solid #000000;
 }
 
 .game-card h3 {
   text-align: center;
-  padding: 22px 12px; /* مسافة كبيرة */
+  padding: 16px 10px; /* أقل من 22px 12px */
   font-weight: 600;
   color: #000000;
-  font-size: 22px; /* اسم اللعبة كبير */
+  font-size: 18px; /* أصغر من 22px */
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
 }
 
 /* ==================== GAME DETAILS ==================== */
 .game-details {
-  margin-top: 50px;
-  padding-bottom: 80px; /* مسافة كبيرة من تحت */
+  margin-top: 35px; /* أقل من 50px */
+  padding-bottom: 60px; /* أقل من 80px */
 }
 
 .game-header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 50px;
-  gap: 30px; /* مسافة كبيرة بين الصورة والاسم */
+  margin-bottom: 35px; /* أقل من 50px */
+  gap: 20px; /* أقل من 30px */
 }
 
 .game-detail-img {
-  width: 200px; /* صورة كبيرة جدًا */
-  height: 200px;
+  width: 140px; /* أصغر من 200px */
+  height: 140px;
   object-fit: cover;
-  border-radius: 24px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-  border: 4px solid #000000;
+  border-radius: 18px; /* أقل من 24px */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 3px solid #000000;
 }
 
 .game-title {
-  font-size: 42px; /* عنوان ضخم */
+  font-size: 32px; /* أصغر من 42px */
   color: #000000;
   margin: 0;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
 }
 
-/* ==================== PRICING TABLE (الجدول الأجمل والأكبر) ==================== */
+/* ==================== PRICING TABLE (الجدول أصغر وأنيق) ==================== */
 .pricing-table {
   overflow-x: auto;
-  margin-bottom: 60px; /* مسافة كبيرة جدًا من تحت */
-  border-radius: 24px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  margin-bottom: 45px; /* أقل من 60px */
+  border-radius: 18px; /* أقل من 24px */
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
 }
 
 .pricing-table table {
   width: 100%;
-  min-width: 400px;
+  min-width: 300px; /* أقل من 400px */
   border-collapse: separate;
   border-spacing: 0;
   background: #ffffff;
-  border-radius: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  border: 4px solid #000000; /* إطار أسود قوي */
+  border: 3px solid #000000; /* أقل سمكًا من 4px */
 }
 
 .pricing-table th {
   background: #000000;
   color: #ffffff;
-  padding: 28px 20px; /* مساحة كبيرة جدًا */
+  padding: 18px 14px; /* أقل من 28px 20px */
   font-weight: 700;
-  font-size: 24px; /* عنوان الجدول كبير */
+  font-size: 18px; /* أصغر من 24px */
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
 }
 
 .pricing-table td {
-  padding: 25px 20px; /* خلايا كبيرة جدًا */
+  padding: 16px 14px; /* أقل من 25px 20px */
   text-align: center;
-  border-bottom: 2px solid #000000;
-  border-left: 2px solid #000000;
-  font-size: 22px; /* نص كبير */
+  border-bottom: 1.5px solid #000000;
+  border-left: 1.5px solid #000000;
+  font-size: 17px; /* أصغر من 22px */
   font-weight: 600;
 }
 
@@ -181,14 +181,14 @@ body {
 }
 
 .pricing-table tr:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
 }
 
 /* السعر يبرز */
 .pricing-table td:last-child {
   color: #d00;
   font-weight: 800;
-  font-size: 24px;
+  font-size: 18px; /* أصغر من 24px */
 }
 
 /* ==================== CHARGE BUTTON ==================== */
@@ -196,96 +196,96 @@ body {
   display: block;
   width: fit-content;
   margin: 0 auto;
-  padding: 20px 50px; /* زر ضخم */
+  padding: 14px 36px; /* أصغر من 20px 50px */
   background: #000000;
   color: #ffffff;
   text-decoration: none;
-  border-radius: 16px;
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 24px; /* نص كبير جدًا */
-  transition: all 0.4s ease;
+  font-size: 19px; /* أصغر من 24px */
+  transition: all 0.35s ease;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
 }
 
 .charge-btn:hover {
   background: #333333;
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
 }
 
 /* ==================== RESPONSIVE (موبايل: 2 صناديق فقط) ==================== */
 @media (max-width: 768px) {
   .games-grid {
     grid-template-columns: 1fr 1fr; /* بالضبط صندوقين */
-    gap: 25px;
+    gap: 20px;
   }
   .game-card img {
-    height: 200px;
+    height: 150px;
   }
   .game-card h3 {
-    font-size: 20px;
-    padding: 18px 10px;
+    font-size: 17px;
+    padding: 14px 8px;
   }
   .game-detail-img {
-    width: 160px;
-    height: 160px;
+    width: 120px;
+    height: 120px;
   }
   .game-title {
-    font-size: 34px;
+    font-size: 28px;
   }
   .back-btn {
-    padding: 12px 22px;
-    font-size: 18px;
-    left: 15px;
+    padding: 9px 18px;
+    font-size: 15px;
+    left: 12px;
   }
   .charge-btn {
-    padding: 18px 40px;
-    font-size: 22px;
+    padding: 13px 32px;
+    font-size: 18px;
   }
   .pricing-table th,
   .pricing-table td {
-    padding: 20px 14px;
-    font-size: 20px;
+    padding: 14px 12px;
+    font-size: 16px;
   }
   .navbar {
-    padding: 18px 0;
+    padding: 12px 0;
   }
   .logo {
-    font-size: 32px;
+    font-size: 26px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 20px 15px;
+    padding: 15px 12px;
   }
   .game-header {
     flex-direction: column;
     text-align: center;
-    gap: 20px;
+    gap: 16px;
   }
   .game-detail-img {
-    width: 140px;
-    height: 140px;
+    width: 110px;
+    height: 110px;
   }
   .game-title {
-    font-size: 30px;
+    font-size: 26px;
   }
   .back-btn {
     position: static;
     display: block;
-    margin: 15px auto 0;
+    margin: 12px auto 0;
     transform: none;
     width: fit-content;
   }
   .navbar {
-    padding: 15px 0;
+    padding: 12px 0;
     text-align: center;
   }
   .logo {
-    font-size: 28px;
+    font-size: 24px;
   }
 }
