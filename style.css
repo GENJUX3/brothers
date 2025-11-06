@@ -289,3 +289,53 @@ body {
     font-size: 24px;
   }
 }
+
+/* ==================== MARQUEE BAR ==================== */
+.marquee-bar {
+  background: #000000;
+  color: #ffffff;
+  padding: 10px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  direction: ltr; /* لأن التحريك من اليمين للشمال */
+  position: relative;
+  z-index: 99;
+}
+
+.marquee-text {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* تكرار النص لتجنب الفراغ */
+.marquee-bar::before,
+.marquee-bar::after {
+  content: "🎮 خصومات حتى 50% على شدات PUBG و Free Fire! 🚀 شحن فوري وآمن 100% 💎 عروض حصرية اليوم فقط!   |  ";
+  white-space: nowrap;
+  display: inline;
+  color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* للموبايل: سرعة أبطأ ونص أصغر */
+@media (max-width: 768px) {
+  .marquee-bar {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .marquee-text {
+    animation: marquee 25s linear infinite;
+  }
+}
