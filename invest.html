@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestGate - إدارة أموالك بذكاء</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        :root {
+            --blue: #1e40af;
+            --blue-dark: #172554;
+            --light: #f8fafc;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--light);
+            color: #1e293b;
+            padding-bottom: 110px;
+            transition: all 0.4s;
+        }
+        body.dark {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .navbar {
+            background: white;
+            height: 68px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(30,64,175,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--blue);
+        }
+        body.dark .navbar { background: var(--dark-card); border-color: #334155; }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--blue-dark);
+        }
+        body.dark .navbar-brand { color: #93c5fd; }
+        .navbar-brand i {
+            font-size: 28px;
+            background: linear-gradient(135deg, #f59e0b, #eab308);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .balance-amount {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--blue-dark);
+        }
+        body.dark .balance-amount { color: #93c5fd; }
+
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 35px rgba(30,64,175,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        body.dark .card { background: var(--dark-card); border-color: #334155; }
+
+        .card-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--blue-dark);
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--blue);
+            margin-bottom: 22px;
+        }
+        body.dark .card-title { color: #93c5fd; border-color: #3b82f6; }
+
+        .chart-container { height: 380px; }
+
+        input, select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 16px;
+            background: white;
+            margin-bottom: 20px;
+        }
+        body.dark input, body.dark select {
+            background: #1e293b;
+            color: white;
+            border-color: #334155;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+            border: none;
+            padding: 17px;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--blue-dark); }
+
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(30,64,175,0.25);
+            border-radius: 60px;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.22);
+            z-index: 999;
+        }
+        body.dark .fab { background: rgba(15,23,42,0.95); border-color: #334155; }
+
+        .fab-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(30,64,175,0.4);
+        }
+        .fab-btn:hover { transform: scale(1.15); background: var(--blue-dark); }
+        .fab-btn.excel { background: var(--success); }
+        .fab-btn.excel:hover { background: #059669; }
+
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000;
+            opacity: 0; visibility: hidden; transition: all 0.4s;
+        }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            width: 90%; max-width: 520px;
+            box-shadow: 0 25px 60px rgba(30,64,175,0.3);
+            transform: scale(0.9); transition: all 0.4s;
+        }
+        .modal.active .modal-content { transform: scale(1); }
+        body.dark .modal-content { background: var(--dark-card); }
+
+        .modal-title {
+            font-size: 26px; font-weight: 900; text-align: center;
+            color: var(--blue-dark); margin-bottom: 30px;
+        }
+        body.dark .modal-title { color: #93c5fd; }
+
+        .source-btns { display: grid; gap: 14px; margin: 25px 0; }
+        .source-btn {
+            padding: 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            background: white;
+            cursor: pointer;
+        }
+        .source-btn.active {
+            border-color: var(--blue);
+            background: #ebf4ff;
+            color: var(--blue);
+        }
+        body.dark .source-btn { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+        body.dark .source-btn.active { background: #1e40af33; border-color: #3b82f6; color: #93c5fd; }
+
+        .hidden { display: none !important; }
+
+        /* بوب آب الإشعارات */
+        #popupAlert {
+            position: fixed;
+            bottom: 350px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            background: white;
+            padding: 24px 32px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 2500;
+            max-width: 90%;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+        }
+        #popupAlert.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+        #popupAlert.success {
+            background: #f0fdf4;
+            border-color: var(--success);
+            color: #166534;
+        }
+        #popupAlert.error {
+            background: #fef2f2;
+            border-color: var(--danger);
+            color: #991b1b;
+        }
+        #popupAlert i {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+        #popupAlert .popup-message {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        body.dark #popupAlert {
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+        body.dark #popupAlert.success { background: #0f3b2a; border-color: #10b981; color: #86efac; }
+        body.dark #popupAlert.error { background: #451313; border-color: #ef4444; color: #fca5a5; }
+
+        @media (max-width: 600px) {
+            .fab { padding: 12px 16px; gap: 14px; bottom: 16px; }
+            .fab-btn { width: 54px; height: 54px; font-size: 22px; }
+            #popupAlert { bottom: 120px; padding: 20px; }
+            #popupAlert i { font-size: 36px; }
+            #popupAlert .popup-message { font-size: 17px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-coins"></i>
+            InvestGate
+        </div>
+        <div class="balance-info">
+            <span class="balance-amount" id="totalBalance">0</span>
+            <span style="font-size:18px;">ج.م</span>
+        </div>
+    </div>
+
+    <!-- بوب آب الإشعارات -->
+    <div id="popupAlert">
+        <i id="popupIcon"></i>
+        <div class="popup-message" id="popupMessage"></div>
+    </div>
+
+    <!-- مودال البداية -->
+    <div id="setupModal" class="modal active">
+        <div class="modal-content">
+            <h3 class="modal-title">مرحبًا في InvestGate</h3>
+            <p style="text-align:center;color:#64748b;margin:20px 0 30px;">ابدأ بتحديد رصيدك الأولي ومكانه</p>
+            <label>المبلغ الأولي</label>
+            <input type="number" id="initialAmount" placeholder="مثال: 15000">
+            <label style="margin-top:20px;">المبلغ موجود في:</label>
+            <div class="source-btns" id="setupSources">
+                <button class="source-btn active" data-source="نقدي">نقدي</button>
+                <button class="source-btn" data-source="محفظة">محفظة إلكترونية</button>
+                <button class="source-btn" data-source="فيزا">فيزا / بطاقة</button>
+            </div>
+            <button class="btn-primary" id="startBtn">ابدأ الآن</button>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div id="mainApp" class="hidden">
+        <div class="container">
+            <div class="card">
+                <div class="card-title">توزيع المصروفات</div>
+                <div class="chart-container">
+                    <canvas id="expensesChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">إضافة مصروف جديد</div>
+                <label>الفئة</label>
+                <input type="text" id="expenseCategory" placeholder="مثال: نتفليكس، بنزين..." list="categories">
+                <datalist id="categories">
+                    <option value="طعام"><option value="مواصلات"><option value="فواتير">
+                    <option value="ترفيه"><option value="صحة"><option value="تسوق"><option value="تعليم">
+                </datalist>
+                <label>المبلغ</label>
+                <input type="number" id="expenseAmount" placeholder="0">
+                <label>من أين تم الدفع؟</label>
+                <select id="paymentSource">
+                    <option value="محفظة">محفظة إلكترونية</option>
+                    <option value="نقدي">نقدي</option>
+                    <option value="فيزا">فيزا / بطاقة</option>
+                </select>
+                <button class="btn-primary" onclick="addExpense()">إضافة المصروف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <div class="fab">
+        <button class="fab-btn" onclick="openAddMoneyModal()">+</button>
+        <button class="fab-btn" onclick="openHistoryModal()"><i class="fas fa-history"></i></button>
+        <button class="fab-btn" onclick="openWalletsModal()"><i class="fas fa-wallet"></i></button>
+        <button class="fab-btn" onclick="toggleTheme()">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="fab-btn excel" onclick="openExportModal()"><i class="fas fa-file-excel"></i></button>
+    </div>
+
+    <!-- باقي المودالات -->
+    <div id="addMoneyModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">إضافة أموال</h3>
+            <div class="source-btns" id="addMoneySources">
+                <button class="source-btn active" data-source="محفظة">محفظة إلكترونية</button>
+                <button class="source-btn" data-source="نقدي">نقدي</button>
+                <button class="source-btn" data-source="فيزا">فيزا / بطاقة</button>
+            </div>
+            <label>المبلغ</label>
+            <input type="number" id="moneyAmount" placeholder="مثال: 5000">
+            <button class="btn-primary" onclick="confirmAddMoney()">إضافة</button>
+            <button style="margin-top:12px;background:#e2e8f0;color:#374151;" class="btn-primary" onclick="closeModal('addMoneyModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">سجل العمليات</h3>
+            <div id="historyList" style="max-height:60vh;overflow-y:auto;margin:25px 0;"></div>
+            <button style="background:#e2e8f0;color:#374151;" class="btn-primary" onclick="closeModal('historyModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <div id="walletsModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">رصيد المحافظ</h3>
+            <div style="margin:35px 0;font-size:19px;">
+                <div style="padding:18px;background:#ebf4ff;border-radius:16px;margin:12px 0;">
+                    <strong>محفظة إلكترونية:</strong> <span id="walletBalance">0</span> ج.م
+                </div>
+                <div style="padding:18px;background:#f0fdf4;border-radius:16px;margin:12px 0;">
+                    <strong>نقدي:</strong> <span id="cashBalance">0</span> ج.م
+                </div>
+                <div style="padding:18px;background:#fef3c7;border-radius:16px;margin:12px 0;">
+                    <strong>فيزا / بطاقة:</strong> <span id="cardBalance">0</span> ج.م
+                </div>
+            </div>
+            <button style="background:#e2e8f0;color:#374151;" class="btn-primary" onclick="closeModal('walletsModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">تصدير البيانات</h3>
+            <p style="text-align:center;color:#64748b;margin:20px 0;">جميع العمليات والمصروفات</p>
+            <div id="exportPreview" style="max-height:50vh;overflow-y:auto;background:#f8fafc;padding:20px;border-radius:14px;margin:20px 0;"></div>
+            <button class="btn-primary" style="background:var(--success);" onclick="exportToExcel()">تصدير إلى Excel</button>
+            <button style="margin-top:12px;background:#e2e8f0;color:#374151;" class="btn-primary" onclick="closeModal('exportModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        // ===================================
+        // LocalStorage Functions
+        // ===================================
+        const STORAGE_KEY = 'investgate_data_v2';
+
+        function saveData() {
+            const dataToSave = {
+                wallets: userData.wallets,
+                expenses: userData.expenses,
+                transactions: userData.transactions,
+                isDarkMode: document.body.classList.contains('dark'),
+                isSetupDone: !document.getElementById('setupModal').classList.contains('active')
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return false;
+
+            try {
+                const data = JSON.parse(saved);
+
+                // تحميل البيانات
+                userData.wallets = data.wallets || { محفظة: 0, نقدي: 0, فيزا: 0 };
+                userData.expenses = data.expenses || [];
+                userData.transactions = data.transactions || [];
+
+                // تحميل الثيم
+                if (data.isDarkMode) {
+                    document.body.classList.add('dark');
+                    document.getElementById('themeIcon').classList.replace('fa-moon', 'fa-sun');
+                }
+
+                // إخفاء مودال البداية لو كان خلّص قبل كده
+                if (data.isSetupDone) {
+                    document.getElementById('setupModal').classList.remove('active');
+                    document.getElementById('mainApp').classList.remove('hidden');
+                }
+
+                updateUI();
+                return true;
+            } catch (e) {
+                console.error("فشل تحميل البيانات");
+                return false;
+            }
+        }
+
+        // ===================================
+        // Variables & Init
+        // ===================================
+        let userData = {
+            wallets: { محفظة: 0, نقدي: 0, فيزا: 0 },
+            expenses: [],
+            transactions: []
+        };
+        let chart = null;
+        let selectedSource = 'محفظة';
+        let selectedInitialSource = 'نقدي';
+
+        // تحميل البيانات لما الصفحة تفتح
+        window.onload = function() {
+            loadData();
+        };
+
+        // حفظ البيانات بعد كل تغيير (مهم جداً)
+        function autoSave() {
+            saveData();
+        }
+
+        // ===================================
+        // Popup Alert
+        // ===================================
+        function showPopup(message, type = 'success') {
+            const popup = document.getElementById('popupAlert');
+            const icon = document.getElementById('popupIcon');
+            const msg = document.getElementById('popupMessage');
+
+            popup.className = type;
+            msg.textContent = message;
+
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else {
+                icon.className = 'fas fa-exclamation-triangle';
+            }
+
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 1500);
+        }
+
+        // ===================================
+        // Theme Toggle
+        // ===================================
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            if (document.body.classList.contains('dark')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+            saveData(); // حفظ الثيم
+        }
+
+        // ===================================
+        // Setup & Main Functions
+        // ===================================
+        document.getElementById('startBtn').onclick = function() {
+            const amount = parseFloat(document.getElementById('initialAmount').value);
+            if (!amount || amount <= 0) return showPopup('أدخل مبلغ صحيح', 'error');
+
+            userData.wallets[selectedInitialSource] = amount;
+            showPopup(`تم البدء بـ ${amount} ج.م`, 'success');
+
+            document.getElementById('setupModal').classList.remove('active');
+            document.getElementById('mainApp').classList.remove('hidden');
+
+            saveData();
+            updateUI();
+        };
+
+        document.getElementById('setupSources').onclick = e => {
+            if (e.target.classList.contains('source-btn')) {
+                document.querySelectorAll('#setupSources .source-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                selectedInitialSource = e.target.dataset.source;
+            }
+        };
+
+        document.getElementById('addMoneySources').onclick = e => {
+            if (e.target.classList.contains('source-btn')) {
+                document.querySelectorAll('#addMoneySources .source-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                selectedSource = e.target.dataset.source;
+            }
+        };
+
+        function addExpense() {
+            const cat = document.getElementById('expenseCategory').value.trim() || 'غير محدد';
+            const amt = parseFloat(document.getElementById('expenseAmount').value);
+            const source = document.getElementById('paymentSource').value;
+
+            if (!amt || amt <= 0) return showPopup('أدخل مبلغ صحيح', 'error');
+            if (userData.wallets[source] < amt) return showPopup(`رصيد ${source} غير كافٍ`, 'error');
+
+            userData.wallets[source] -= amt;
+            const exp = { id: Date.now(), type: 'expense', category: cat, amount: amt, source };
+            userData.expenses.push(exp);
+            userData.transactions.push({ ...exp, time: new Date().toLocaleString('ar-EG') });
+
+            document.getElementById('expenseAmount').value = '';
+            document.getElementById('expenseCategory').value = '';
+
+            showPopup(`تم إضافة مصروف: ${cat}`, 'success');
+            saveData();
+            updateUI();
+        }
+
+        function openAddMoneyModal() {
+            document.getElementById('moneyAmount').value = '';
+            document.getElementById('addMoneyModal').classList.add('active');
+        }
+
+        function confirmAddMoney() {
+            const amt = parseFloat(document.getElementById('moneyAmount').value);
+            if (!amt || amt <= 0) return showPopup('أدخل مبلغ صحيح', 'error');
+
+            userData.wallets[selectedSource] += amt;
+            userData.transactions.push({ type: 'income', amount: amt, source: selectedSource, time: new Date().toLocaleString('ar-EG') });
+
+            showPopup(`تم إيداع ${amt} ج.م`, 'success');
+            closeModal('addMoneyModal');
+            saveData();
+            updateUI();
+        }
+
+        // باقي الدوال (history, wallets, export, closeModal, updateUI) نفسها بالضبط
+        function openHistoryModal() {
+            const list = document.getElementById('historyList');
+            list.innerHTML = userData.transactions.length === 0
+                ? '<p style="text-align:center;color:#94a3b8;padding:40px;">لا توجد عمليات بعد</p>'
+                : userData.transactions.slice().reverse().map(t => `
+                    <div style="padding:18px;border-bottom:1px solid #f1f5f9;background:${t.type==='income'?'#f0fdf4':'#fef2f2'};border-radius:12px;margin:8px 0;">
+                        <div style="font-weight:700;font-size:17px;">${t.type === 'income' ? 'إيداع' : 'مصروف: ' + t.category}</div>
+                        <div style="margin:8px 0;color:${t.type==='income'?'#10b981':'#ef4444'};font-weight:800;">
+                            ${t.type==='income'?'+' : '-'} ${t.amount} ج.م ← ${t.source}
+                        </div>
+                        <div style="font-size:13px;color:#94a3b8;">${t.time}</div>
+                    </div>
+                `).join('');
+            document.getElementById('historyModal').classList.add('active');
+        }
+
+        function openWalletsModal() {
+            document.getElementById('walletBalance').textContent = userData.wallets.محفظة.toFixed(0);
+            document.getElementById('cashBalance').textContent = userData.wallets.نقدي.toFixed(0);
+            document.getElementById('cardBalance').textContent = userData.wallets.فيزا.toFixed(0);
+            document.getElementById('walletsModal').classList.add('active');
+        }
+
+        function openExportModal() {
+            const preview = document.getElementById('exportPreview');
+            preview.innerHTML = userData.transactions.length === 0
+                ? '<p style="text-align:center;color:#94a3b8;padding:50px;">لا توجد بيانات</p>'
+                : userData.transactions.slice().reverse().map(t => `
+                    <div style="padding:12px;border-bottom:1px dashed #cbd5e1;">
+                        <strong>${t.type === 'income' ? 'إيداع' : t.category}</strong> |
+                        ${t.type==='income'?'+' : '-'} ${t.amount} ج.م | ${t.source} | ${t.time}
+                    </div>
+                `).join('');
+            document.getElementById('exportModal').classList.add('active');
+        }
+
+        function exportToExcel() {
+            const data = userData.transactions.map(t => ({
+                التاريخ: t.time,
+                النوع: t.type === 'income' ? 'إيداع' : 'مصروف',
+                الفئة: t.type === 'income' ? '-' : t.category,
+                المبلغ: t.type === 'income' ? t.amount : -t.amount,
+                المصدر: t.source
+            }));
+            if (data.length > 0) data.push({ التاريخ: 'الإجمالي', المبلغ: Object.values(userData.wallets).reduce((a,b)=>a+b,0) });
+            const ws = XLSX.utils.json_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "InvestGate");
+            XLSX.writeFile(wb, `InvestGate_${new Date().toLocaleDateString('ar-EG').replace(/\//g,'-')}.xlsx`);
+            showPopup('تم التصدير بنجاح!', 'success');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function updateUI() {
+            const total = Object.values(userData.wallets).reduce((a,b) => a + b, 0);
+            document.getElementById('totalBalance').textContent = total.toFixed(0);
+
+            const ctx = document.getElementById('expensesChart').getContext('2d');
+            const catData = {};
+            userData.expenses.forEach(e => catData[e.category] = (catData[e.category] || 0) + e.amount);
+
+            if (chart) chart.destroy();
+            if (Object.keys(catData).length === 0) return;
+
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(catData),
+                    datasets: [{
+                        data: Object.values(catData),
+                        backgroundColor: ['#1e40af','#172554','#3b82f6','#1e3a8a','#2563eb','#1d4ed8','#6366f1'],
+                        borderWidth: 4,
+                        borderColor: document.body.classList.contains('dark') ? '#1e293b' : '#fff'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+    </script>
+</body>
+</html>
